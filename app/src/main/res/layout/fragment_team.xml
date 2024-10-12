@@ -7,13 +7,13 @@
     android:padding="16dp">
 
     <ImageView
+        android:id="@+id/teamImage"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/teamImage"
         app:layout_constraintBaseline_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        />
+        app:srcCompat="@drawable/baseline_people_24" />
 
     <TextView
         android:layout_width="0dp"
