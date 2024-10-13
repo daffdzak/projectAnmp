@@ -6,20 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.projectanmp.R
-
+import com.example.projectanmp.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
-
-
-
+    private lateinit var binding: FragmentProfileBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        // Menginisialisasi binding
+        binding = FragmentProfileBinding.inflate(inflater, container, false)
+
+        // Mengubah teks pada TextView dengan ID descriptionText
+        binding.descriptionText.text = "Kami adalah tim yang berfokus pada dunia Esport."
+
+        // Mengembalikan root view dari binding
+        return binding.root
     }
-
-
 }
