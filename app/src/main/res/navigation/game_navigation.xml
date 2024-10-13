@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/game_navigation"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/itemGame">
 
     <fragment
-        android:id="@+id/mainFragment"
+        android:id="@+id/itemGame"
         android:name="com.example.projectanmp.view.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
@@ -23,7 +23,7 @@
         android:label="fragment_schedule_detail"
         tools:layout="@layout/fragment_schedule_detail" />
     <fragment
-        android:id="@+id/scheduleFragment"
+        android:id="@+id/itemSchedule"
         android:name="com.example.projectanmp.view.ScheduleFragment"
         android:label="ScheduleFragment" >
         <action
@@ -36,7 +36,7 @@
         android:label="fragment_achievement"
         tools:layout="@layout/fragment_achievement" />
     <fragment
-        android:id="@+id/profileFragment"
+        android:id="@+id/itemProfile"
         android:name="com.example.projectanmp.view.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
