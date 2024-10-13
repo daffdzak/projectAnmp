@@ -11,6 +11,7 @@ import com.android.volley.toolbox.Volley
 import com.example.projectanmp.model.EsportGame
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import org.json.JSONObject
 
 class GameViewModel(application: Application) : AndroidViewModel(application) {
     val GamesLD = MutableLiveData<ArrayList<EsportGame>>()
@@ -24,30 +25,35 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         LoadingLD.value = true
         gameLoadErrorLD.value = false
 
-        // Inisialisasi RequestQueue
         queue = Volley.newRequestQueue(getApplication())
-        val url = "https://www.jsonkeeper.com/b/ENFP"
+        val url = "https://www.jsonkeeper.com/b/SLXN"
 
         val stringRequest = StringRequest(
             Request.Method.GET, url,
             { response ->
-                // Parsing JSON ke dalam model EsportGame
-                val sType = object : TypeToken<List<EsportGame>>() {}.type
-                val result = Gson().fromJson<List<EsportGame>>(response, sType)
+                Log.d("API Response", response)
+                try {
+                    val jsonObject = JSONObject(response)
+                    val gamesArray = jsonObject.getJSONArray("esport_games")
 
-                // Update LiveData dengan hasil parsing
-                GamesLD.value = ArrayList(result)
+                    val sType = object : TypeToken<List<EsportGame>>() {}.type
+                    val result = Gson().fromJson<List<EsportGame>>(gamesArray.toString(), sType)
+                    GamesLD.value = ArrayList(result)
+                    Log.d("showvolley", result.toString())
 
-                // Log hasil parsing
-                Log.d("showvolley", result.toString())
+                }
+                catch (e: Exception){
+                    Log.e("Parsing error",e.toString())
+                    gameLoadErrorLD.value = true
+                }finally {
+                    LoadingLD.value = false
+                }
 
-                // Set loading status
-                LoadingLD.value = false
             },
             { error ->
                 Log.d("showvoley", error.toString())
-                gameLoadErrorLD.value = true  // Set error status
-                LoadingLD.value = false        // Set loading status
+                gameLoadErrorLD.value = true
+                LoadingLD.value = false
             }
         )
 

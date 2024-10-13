@@ -2,14 +2,14 @@ package com.example.projectanmp.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectanmp.R
 import com.example.projectanmp.databinding.ItemGamesBinding
 import com.example.projectanmp.model.EsportGame
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
-class GameAdapter(private val gameList: List<EsportGame>) : RecyclerView.Adapter<GameAdapter.GameViewHolder>() {
+class GameAdapter(private var gameList: List<EsportGame>) : RecyclerView.Adapter<GameAdapter.GameViewHolder>() {
 
     class GameViewHolder(val binding: ItemGamesBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -24,17 +24,26 @@ class GameAdapter(private val gameList: List<EsportGame>) : RecyclerView.Adapter
         holder.binding.txtDeskripsi.text = currentItem.description
 
         holder.binding.btnAchievement.setOnClickListener {
-            val action = MainFragmentDirections.actionMainFragmentToAchievementFragment()
-            Navigation.findNavController(it).navigate(action)
         }
-
 
         Picasso.get()
             .load(currentItem.image)
             .placeholder(R.drawable.placeholder_image)
-            .error(R.drawable.placeholder_image) // Gambar error jika URL gagal dimuat
-            .into(holder.binding.imgGame) // Menggunakan binding untuk mengambil ImageView
+            .error(R.drawable.placeholder_image)
+            .into(holder.binding.imgGame, object : Callback {
+                override fun onSuccess() {
+                }
+
+                override fun onError(e: Exception?) {
+                    e?.printStackTrace()
+                }
+            })
     }
 
     override fun getItemCount(): Int = gameList.size
+
+    fun updateGames(newGameList: List<EsportGame>) {
+        gameList = newGameList
+        notifyDataSetChanged()
+    }
 }
