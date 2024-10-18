@@ -2,6 +2,7 @@ package com.example.projectanmp.view
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectanmp.R
 import com.example.projectanmp.databinding.ItemGamesBinding
@@ -16,6 +17,8 @@ class GameAdapter(private var gameList: List<EsportGame>) : RecyclerView.Adapter
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameViewHolder {
         val binding = ItemGamesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return GameViewHolder(binding)
+
+
     }
 
     override fun onBindViewHolder(holder: GameViewHolder, position: Int) {
@@ -24,6 +27,14 @@ class GameAdapter(private var gameList: List<EsportGame>) : RecyclerView.Adapter
         holder.binding.txtDeskripsi.text = currentItem.description
 
         holder.binding.btnAchievement.setOnClickListener {
+           // val achievementsAsStrings = currentItem.achievements.map {
+               // "${it.event_name};${it.team};${it.year}"
+            //}.toTypedArray()
+            val action = MainFragmentDirections.actionMainFragmentToAchievementFragment(
+
+
+            )
+            holder.itemView.findNavController().navigate(action)
         }
 
         Picasso.get()
@@ -38,6 +49,8 @@ class GameAdapter(private var gameList: List<EsportGame>) : RecyclerView.Adapter
                     e?.printStackTrace()
                 }
             })
+
+
     }
 
     override fun getItemCount(): Int = gameList.size

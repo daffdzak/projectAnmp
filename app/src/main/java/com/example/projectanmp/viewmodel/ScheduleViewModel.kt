@@ -26,7 +26,7 @@ class ScheduleViewModel(application: Application) : AndroidViewModel(application
         scheduleLoadErrorLD.value = false
 
         queue = Volley.newRequestQueue(getApplication())
-        val url = "https://www.jsonkeeper.com/b/SLXN" // Ganti dengan URL yang sesuai
+        val url = "https://www.jsonkeeper.com/b/SLXN"
 
         val stringRequest = StringRequest(
             Request.Method.GET, url,
@@ -34,11 +34,10 @@ class ScheduleViewModel(application: Application) : AndroidViewModel(application
                 Log.d("API Response", response)
                 try {
                     val jsonObject = JSONObject(response)
-                    val gamesArray = jsonObject.getJSONArray("esport_games") // Pastikan menggunakan nama yang sesuai
+                    val gamesArray = jsonObject.getJSONArray("esport_games")
 
                     val upcomingEvents = mutableListOf<UpcomingEvent>()
 
-                    // Loop through each game and extract upcoming events
                     for (i in 0 until gamesArray.length()) {
                         val game = gamesArray.getJSONObject(i)
                         val gameTitle = game.getString("game_title")
@@ -60,7 +59,6 @@ class ScheduleViewModel(application: Application) : AndroidViewModel(application
                         }
                     }
 
-                    // Set hasil langsung ke LiveData
                     upcomingEventsLD.value = ArrayList(upcomingEvents)
                     Log.d("showvolley", upcomingEvents.toString())
 

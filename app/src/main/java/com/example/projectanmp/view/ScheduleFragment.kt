@@ -29,23 +29,18 @@ class ScheduleFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Set layout manager and adapter for RecyclerView
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
-        scheduleAdapter = ScheduleAdapter(listOf()) // Pass an empty list initially
+        scheduleAdapter = ScheduleAdapter(listOf())
         binding.recyclerView.adapter = scheduleAdapter
 
-        // Initialize ViewModel
         viewModel = ViewModelProvider(this).get(ScheduleViewModel::class.java)
 
-        // Observe ViewModel to update UI with data
         observeViewModel()
 
-        // Call refresh to load the data
         viewModel.refresh()
     }
 
     private fun observeViewModel() {
-        // Observe LiveData for upcoming events
         viewModel.upcomingEventsLD.observe(viewLifecycleOwner, Observer { events ->
             events?.let {
                 scheduleAdapter.updateEvents(it)
@@ -54,7 +49,6 @@ class ScheduleFragment : Fragment() {
             }
         })
 
-        // Observe LiveData for errors
         viewModel.scheduleLoadErrorLD.observe(viewLifecycleOwner, Observer { isError ->
             isError?.let {
                 if (it) {
@@ -63,7 +57,6 @@ class ScheduleFragment : Fragment() {
             }
         })
 
-        // Observe LiveData for loading state
         viewModel.loadingLD.observe(viewLifecycleOwner, Observer { isLoading ->
             isLoading?.let {
                 binding.recyclerView.visibility = if (it) View.GONE else View.VISIBLE
