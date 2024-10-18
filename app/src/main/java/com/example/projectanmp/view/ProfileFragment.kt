@@ -10,18 +10,24 @@ import com.example.projectanmp.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
+    private var i = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Menginisialisasi binding
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
-        // Mengubah teks pada TextView dengan ID descriptionText
         binding.descriptionText.text = "Kami adalah tim yang berfokus pada dunia Esport."
 
-        // Mengembalikan root view dari binding
+        binding.btnLike.text = i.toString()
+
+        binding.btnLike.setOnClickListener {
+            i++
+            binding.btnLike.text = i.toString()
+            binding.btnLike.isEnabled = false
+        }
+
         return binding.root
     }
 }
