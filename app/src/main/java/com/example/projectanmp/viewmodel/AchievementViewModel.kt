@@ -9,6 +9,7 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.projectanmp.model.Achievement
+import com.example.projectanmp.model.EsportGame
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.json.JSONObject
@@ -19,7 +20,11 @@ class AchievementViewModel(application: Application) : AndroidViewModel(applicat
     val loadingLD = MutableLiveData<Boolean>()
 
     private var queue: RequestQueue? = null
-    private val url = "https://www.jsonkeeper.com/b/SLXN"
+    private val url = "https://www.jsonkeeper.com/b/9KFN"
+    private var allAchievements = listOf<Achievement>()
+    private var esportGames = listOf<EsportGame>()
+
+
 
     fun refresh() {
         loadingLD.value = true
@@ -65,8 +70,10 @@ class AchievementViewModel(application: Application) : AndroidViewModel(applicat
         queue?.add(stringRequest)
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        queue?.cancelAll("TAG")
+    fun filterAchievementsByYear(year: Int) {
+        val filteredAchievements = allAchievements.filter { it.year == year }
+        achievementLD.value = filteredAchievements
     }
+
+
 }

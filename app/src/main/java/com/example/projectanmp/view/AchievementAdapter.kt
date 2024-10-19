@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.projectanmp.databinding.ItemAchievementBinding
 import com.example.projectanmp.model.Achievement
 
-class AchievementAdapter(private val achievementList: List<Achievement>) :
+class AchievementAdapter(private val achievementList: MutableList<Achievement>) :
     RecyclerView.Adapter<AchievementAdapter.AchievementViewHolder>() {
 
     inner class AchievementViewHolder(val binding: ItemAchievementBinding) :
@@ -24,6 +24,12 @@ class AchievementAdapter(private val achievementList: List<Achievement>) :
 
     override fun onBindViewHolder(holder: AchievementViewHolder, position: Int) {
         holder.bind(achievementList[position])
+    }
+
+    fun updateAchievements(newAchievements: List<Achievement>) {
+        achievementList.clear()
+        achievementList.addAll(newAchievements)
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int = achievementList.size

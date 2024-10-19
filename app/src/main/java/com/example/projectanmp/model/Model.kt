@@ -13,9 +13,10 @@ data class EsportGame(
 )
 
 data class Achievement(
-    val year: Int,
+    val event_name: String,
     val team: String,
-    val event_name: String
+    val year: Int
+
 )
 
 data class UpcomingEvent(

@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_achievementFragment"
-            app:destination="@id/itemAchievement" />
+            app:destination="@id/itemAchievement" >
+
+        </action>
         <action
             android:id="@+id/action_mainFragment_to_teamFragment"
             app:destination="@id/itemTeam" />
@@ -34,7 +36,11 @@
         android:id="@+id/itemAchievement"
         android:name="com.example.projectanmp.view.AchievementFragment"
         android:label="fragment_achievement"
-        tools:layout="@layout/fragment_achievement" />
+        tools:layout="@layout/fragment_achievement" >
+        <argument
+            android:name="achievement"
+            app:argType="string[]"/>
+    </fragment>
     <fragment
         android:id="@+id/itemProfile"
         android:name="com.example.projectanmp.view.ProfileFragment"

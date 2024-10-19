@@ -19,7 +19,6 @@ class ScheduleAdapter(private var events: List<UpcomingEvent>) : RecyclerView.Ad
     override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
         val event = events[position]
         holder.binding.apply {
-            // Bind event data to the layout
             txtTGL.text = event.day.toString()
             txtBLN.text = event.month
             txtNama.text = event.event_name
@@ -28,7 +27,6 @@ class ScheduleAdapter(private var events: List<UpcomingEvent>) : RecyclerView.Ad
 
     override fun getItemCount() = events.size
 
-    // Update the adapter with new event list
     fun updateEvents(newEvents: List<UpcomingEvent>) {
         events = newEvents
         notifyDataSetChanged()

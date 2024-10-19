@@ -26,12 +26,10 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        // Setup NavController
         navController = (supportFragmentManager.findFragmentById(R.id.hostFragment) as NavHostFragment).navController
         binding.bottomNav.setupWithNavController(navController)
         binding.navView.setupWithNavController(navController)
 
-        // Setup DrawerLayout
         drawerToggle = ActionBarDrawerToggle(
             this,
             binding.drawerLayout,
@@ -41,7 +39,6 @@ class MainActivity : AppCompatActivity() {
         binding.drawerLayout.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
 
-        // Handle navigation item selection
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.itemGame -> navController.navigate(R.id.itemGame)
