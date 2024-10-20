@@ -29,3 +29,8 @@ data class UpcomingEvent(
     val description: String,
     val event_image: String
 )
+
+data class Team(
+    val name: String,
+    val members: List<String>
+)

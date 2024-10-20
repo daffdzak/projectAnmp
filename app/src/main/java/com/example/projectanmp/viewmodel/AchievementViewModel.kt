@@ -44,6 +44,7 @@ class AchievementViewModel(application: Application) : AndroidViewModel(applicat
 
                     for (i in 0 until esportGamesArray.length()) {
                         val gameObject = esportGamesArray.getJSONObject(i)
+
                         val achievementsArray = gameObject.getJSONArray("achievements")
 
                         val sType = object : TypeToken<List<Achievement>>() {}.type

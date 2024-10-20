@@ -34,6 +34,22 @@ class AchievementFragment : Fragment() {
         achievementAdapter = AchievementAdapter(mutableListOf())
         binding.recAchievement.adapter = achievementAdapter
 
+        // Ambil data achievements dari argument yang dikirim dari GameAdapter
+        val achievementsAsStrings = arguments?.getStringArray("achievements") ?: emptyArray()
+
+        // Konversi data string ke dalam list Achievement
+        val achievements = achievementsAsStrings.map { achievementString ->
+            val parts = achievementString.split(";")
+            Achievement(
+                event_name = parts[0],
+                team = parts[1],
+                year = parts[2].toIntOrNull() ?: 0 // Pastikan year bisa dikonversi ke Int
+            )
+        }
+
+        // Update RecyclerView dengan data achievement
+        achievementAdapter.updateAchievements(achievements)
+
         val years = listOf(2022, 2023).map {it.toString()}
         binding.spinner.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, years)
 
@@ -54,6 +70,14 @@ class AchievementFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val args = AchievementFragmentArgs.fromBundle(requireArguments())
+        val achievements = args.achievement
+
+        val achievementList = achievements.map {
+            val parts = it.split(";")
+            Achievement(parts[0], parts[1], parts[2].toInt())
+        }
 
         viewModel = ViewModelProvider(this).get(AchievementViewModel::class.java)
 
