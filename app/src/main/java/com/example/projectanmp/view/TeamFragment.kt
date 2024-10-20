@@ -22,25 +22,21 @@ class TeamFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_team, container, false)
 
-        // Hardcode daftar tim
         val teamList = listOf(
-            Team("TEAM A", listOf("Member 1", "Member 2", "Member 3", "Member 4", "Member 5")),
-            Team("TEAM B", listOf("Member 1", "Member 2", "Member 3", "Member 4", "Member 5")),
-            Team("TEAM C", listOf("Member 1", "Member 2", "Member 3", "Member 4", "Member 5"))
+            Team("TEAM A", listOf("Faker", "Chovy", "Keria", "Gumayusi", "Stelle")),
+            Team("TEAM B", listOf("Moy", "HellMoura", "Kenz", "DivineAngle", "Ruler")),
+            Team("TEAM C", listOf("Oura", "Brusko", "Irrad", "AudyTzy", "Clover"))
         )
 
         val listView: ListView = view.findViewById(R.id.teamListView)
 
-        // Adapter untuk menampilkan daftar tim
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, teamList.map { it.name })
         listView.adapter = adapter
 
-        // Set on item click listener
         listView.setOnItemClickListener { _, _, position, _ ->
             val selectedTeam = teamList[position]
             teamViewModel.selectTeam(selectedTeam)
 
-            // Ganti fragment ke TeamDetailFragment
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.hostFragment, TeamDetailFragment())
                 .addToBackStack(null)
