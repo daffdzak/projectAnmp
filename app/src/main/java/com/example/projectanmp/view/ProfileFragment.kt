@@ -18,7 +18,7 @@ class ProfileFragment : Fragment() {
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
 
-        binding.descriptionText.text = "Kami adalah tim yang berfokus pada dunia Esport."
+        binding.descriptionText.text = "Dika Gaming adalah tim yang berfokus pada dunia Esport."
 
         binding.btnLike.text = i.toString()
 
