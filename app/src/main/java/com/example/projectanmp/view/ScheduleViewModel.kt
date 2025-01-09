@@ -1,4 +1,4 @@
-package com.example.projectanmp.viewmodel
+package com.example.projectanmp.view
 
 import android.app.Application
 import android.util.Log
@@ -9,8 +9,6 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.projectanmp.model.UpcomingEvent
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import org.json.JSONObject
 
 class ScheduleViewModel(application: Application) : AndroidViewModel(application) {

@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projectanmp.databinding.FragmentScheduleBinding
-import com.example.projectanmp.viewmodel.ScheduleViewModel
 import com.example.projectanmp.adapter.ScheduleAdapter
 
 class ScheduleFragment : Fragment() {
