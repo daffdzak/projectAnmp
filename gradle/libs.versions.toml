@@ -15,8 +15,19 @@ navigationUiKtx = "2.8.2"
 picasso = "2.71828"
 volley = "1.2.1"
 gson = "2.10.1"
+navigationFragmentKTX = "2.5.3"
+navigationUIKTX = "2.5.3"
+roomRuntime = "2.5.1"
+roomKTX = "2.5.1"
+roomCompiler = "2.5.1"
+
 
 [libraries]
+navigation-fragment-ktx = { group ="androidx.navigation", name="navigation-fragment-ktx", version.ref="navigationFragmentKTX"}
+navigation-ui-ktx = { group ="androidx.navigation", name="navigation-ui-ktx", version.ref="navigationUIKTX" }
+room-runtime = { group="androidx.room", name="room-runtime", version.ref="roomRuntime" }
+room-ktx = { group="androidx.room", name="room-ktx", version.ref="roomKTX" }
+room-compiler = { group = "androidx.room", name="room-compiler", version.ref = "roomCompiler" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

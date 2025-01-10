@@ -11,6 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <CheckBox
+            android:id="@+id/checkAgree"
+            android:layout_width="257dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="100dp"
+            android:text="I agree on terms and conditions"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.127"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextRepeat" />
+
         <TextView
             android:id="@+id/txtSignUp"
             android:layout_width="wrap_content"
@@ -23,6 +34,15 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#0D0C0C"
+            android:text="Back"
+            tools:layout_editor_absoluteX="46dp"
+            tools:layout_editor_absoluteY="770dp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/txtInputFirst"
@@ -46,8 +66,10 @@
             android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@+id/editTextLast"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.491"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtSignUp" />
+            app:layout_constraintTop_toBottomOf="@+id/txtSignUp"
+            app:layout_constraintVertical_bias="0.0" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextLast"
@@ -71,7 +93,7 @@
             android:hint="Username"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintHorizontal_bias="0.49"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextLast" />
 
@@ -79,13 +101,33 @@
             android:id="@+id/editTextPass"
             android:layout_width="282dp"
             android:layout_height="49dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="44dp"
             android:hint="Password"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintHorizontal_bias="0.489"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextUser" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextRepeat"
+            android:layout_width="282dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="44dp"
+            android:hint="Repeat Password"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.489"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextPass" />
+
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            tools:layout_editor_absoluteX="350dp"
+            tools:layout_editor_absoluteY="770dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
