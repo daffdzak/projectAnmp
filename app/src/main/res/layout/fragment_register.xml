@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.RegisterFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/txtSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:text="Sign Up"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtInputFirst"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtInputLast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextFirst"
+            android:layout_width="281dp"
+            android:layout_height="54dp"
+            android:layout_marginTop="88dp"
+            android:hint="Firstname"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/editTextLast"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtSignUp" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextLast"
+            android:layout_width="282dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="144dp"
+            android:layout_marginBottom="12dp"
+            android:hint="Lastname"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/editTextUser"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtSignUp" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextUser"
+            android:layout_width="282dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="12dp"
+            android:hint="Username"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextLast" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextPass"
+            android:layout_width="282dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="12dp"
+            android:hint="Password"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextUser" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
