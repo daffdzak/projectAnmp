@@ -26,13 +26,13 @@ class GameAdapter(private var gameList: List<EsportGame>) : RecyclerView.Adapter
         holder.binding.txtNama.text = currentItem.game_title
         holder.binding.txtDeskripsi.text = currentItem.description
 
-        holder.binding.btnAchievement.setOnClickListener {
-            val achievementsAsStrings = currentItem.achievements.map {
-               "${it.event_name};${it.team};${it.year}"
-            }.toTypedArray()
-            val action = MainFragmentDirections.actionMainFragmentToAchievementFragment(achievementsAsStrings)
-            holder.itemView.findNavController().navigate(action)
-        }
+//        holder.binding.btnAchievement.setOnClickListener {
+//            val achievementsAsStrings = currentItem.achievements.map {
+//               "${it.event_name};${it.team};${it.year}"
+//            }.toTypedArray()
+//            val action = MainFragmentDirections.actionMainFragmentToAchievementFragment(achievementsAsStrings)
+//            holder.itemView.findNavController().navigate(action)
+//        }
 
         holder.binding.btnTeams.setOnClickListener {
             val action = MainFragmentDirections.actionMainFragmentToTeamFragment()

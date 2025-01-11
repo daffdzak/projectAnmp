@@ -12,7 +12,7 @@ class AchievementAdapter(private val achievementList: MutableList<Achievement>) 
     inner class AchievementViewHolder(val binding: ItemAchievementBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(achievement: Achievement) {
-            val formattedText = "${achievement.event_name} - ${achievement.team} (${achievement.year})"
+            val formattedText = "${achievement.eventName} - ${achievement.team} (${achievement.year})"
             binding.txtAchievement.text = formattedText
         }
     }
