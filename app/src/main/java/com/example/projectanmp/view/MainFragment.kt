@@ -10,70 +10,61 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projectanmp.databinding.FragmentMainBinding
+import com.example.projectanmp.model.Game
 import com.example.projectanmp.viewmodel.GameViewModel
 
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
     private lateinit var viewModel: GameViewModel
-    private lateinit var gameAdapter: GameAdapter
+    private val gameAdapter =GameAdapter(arrayListOf())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
+
+        setupRecyclerView()
+        setupSwipeRefreshLayout()
+        observeViewModel()
+
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.recyclerView.layoutManager = LinearLayoutManager(context)
-        gameAdapter = GameAdapter(listOf())
-        binding.recyclerView.adapter = gameAdapter
-
-        viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
-        observeViewModel()
-
-        binding.refreshLayout.setOnRefreshListener {
-            binding.recyclerView.visibility = View.GONE
-            binding.progressBar.visibility = View.VISIBLE
-            viewModel.refresh()
-            binding.refreshLayout.isRefreshing = false
+    private fun setupRecyclerView() {
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = gameAdapter
         }
-        binding.progressBar.visibility = View.VISIBLE
-        viewModel.refresh()
     }
 
+    private fun setupSwipeRefreshLayout() {
+        binding.refreshLayout.setOnRefreshListener {
+            viewModel.refresh()
+        }
+    }
+
+
+
     private fun observeViewModel() {
-        viewModel.GamesLD.observe(viewLifecycleOwner, Observer { games ->
-            games?.let {
-                gameAdapter.updateGames(it)
-                binding.recyclerView.visibility = View.VISIBLE
+        viewModel.gamesLD.observe(viewLifecycleOwner) { games ->
+            games?. let {
+                gameAdapter.updateGamesList(it as ArrayList<Game>)
+            }
+        }
+
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+            binding.refreshLayout.isRefreshing = isLoading
+        }
+
+        viewModel.errorState.observe(viewLifecycleOwner) { isError ->
+            if (isError) {
                 binding.progressBar.visibility = View.GONE
-                Log.d("MainFragment", "Game list size: ${it.size}")
+            } else {
             }
-        })
-
-        viewModel.gameLoadErrorLD.observe(viewLifecycleOwner, Observer { isError ->
-            isError?.let {
-                if (it) {
-                    Log.e("MainFragment", "Error loading data")
-                }
-            }
-        })
-
-        viewModel.LoadingLD.observe(viewLifecycleOwner, Observer { isLoading ->
-            isLoading?.let {
-                if (it) {
-                    binding.recyclerView.visibility = View.GONE
-                    binding.progressBar.visibility = View.VISIBLE
-                } else {
-                    binding.progressBar.visibility = View.GONE
-                    binding.recyclerView.visibility = View.VISIBLE
-                }
-            }
-        })
+        }
     }
 }

@@ -2,6 +2,7 @@ package com.example.projectanmp.model
 
 import android.content.Context
 import android.provider.CalendarContract.Instances
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -55,9 +56,10 @@ abstract class GameDatabase : RoomDatabase() {
             val jsonString = loadJsonFromAsset("data.json", context)
             val gson = Gson()
             val typeToken = object : TypeToken<EsportGamesResponse>() {}.type
-            val competitionsWrapper: EsportGamesResponse = gson.fromJson(jsonString, typeToken)
+            val EsportWrapper: EsportGamesResponse = gson.fromJson(jsonString, typeToken)
 
-            competitionsWrapper.esport_games.forEach { comp ->
+            EsportWrapper.esport_games.forEach { comp ->
+                Log.d("GameDatabase", "Processing game: ${comp.game_title}")
                 val games = Game(
                     id = comp.id,
                     image = comp.image,

@@ -3,66 +3,52 @@ package com.example.projectanmp.viewmodel
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.projectanmp.model.EsportGame
+import com.example.projectanmp.model.Game
+import com.example.projectanmp.model.GameDatabase
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.json.JSONObject
 
 class GameViewModel(application: Application) : AndroidViewModel(application) {
-    val GamesLD = MutableLiveData<ArrayList<EsportGame>>()
-    val gameLoadErrorLD = MutableLiveData<Boolean>()
-    val LoadingLD = MutableLiveData<Boolean>()
+    private val db = GameDatabase.buildDatabase(application, viewModelScope)
+    val gamesLD: LiveData<List<Game>> = db.gameDao().getAllGameLiveData()
 
-    val TAG = "volleyTag"
-    private var queue: RequestQueue? = null
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> get() = _isLoading
 
-    fun refresh() {
-        LoadingLD.value = true
-        gameLoadErrorLD.value = false
+    private val _errorState = MutableLiveData<Boolean>()
+    val errorState: LiveData<Boolean> get() = _errorState
 
-        queue = Volley.newRequestQueue(getApplication())
-        val url = "https://www.jsonkeeper.com/b/9KFN"
-
-        val stringRequest = StringRequest(
-            Request.Method.GET, url,
-            { response ->
-                Log.d("API Response", response)
-                try {
-                    val jsonObject = JSONObject(response)
-                    val gamesArray = jsonObject.getJSONArray("esport_games")
-
-                    val sType = object : TypeToken<List<EsportGame>>() {}.type
-                    val result = Gson().fromJson<List<EsportGame>>(gamesArray.toString(), sType)
-                    GamesLD.value = ArrayList(result)
-                    Log.d("showvolley", result.toString())
-
-                }
-                catch (e: Exception){
-                    Log.e("Parsing error",e.toString())
-                    gameLoadErrorLD.value = true
-                }finally {
-                    LoadingLD.value = false
-                }
-
-            },
-            { error ->
-                Log.d("showvoley", error.toString())
-                gameLoadErrorLD.value = true
-                LoadingLD.value = false
-            }
-        )
-
-        stringRequest.tag = TAG
-        queue?.add(stringRequest)
+    init {
+        refresh()
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        queue?.cancelAll(TAG)
+    fun refresh() {
+        _isLoading.value = true
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val games = db.gameDao().getAllGameLiveData().value
+                _errorState.postValue(false)
+                games?.let {
+                    viewModelScope.launch(Dispatchers.Main) {
+                        (gamesLD as MutableLiveData).postValue(it)
+                    }
+                }
+            } catch (exception: Exception) {
+                _errorState.postValue(true)
+            } finally {
+                _isLoading.postValue(false)
+            }
+        }
     }
 }
