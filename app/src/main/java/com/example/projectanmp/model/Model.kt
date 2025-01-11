@@ -23,7 +23,10 @@ data class EsportGame(
     val description: String,
 
     @SerializedName("achievement")
-    val achievement: List<AchievementJson>
+    val achievement: List<AchievementJson>,
+
+//    @SerializedName("upcoming_events")
+//    val upcomingEvents: List<UpcomingEvent>
 )
 
 data class AchievementJson(
@@ -65,7 +68,11 @@ data class User(
     @ColumnInfo(name="username")
     var usrname:String,
     @ColumnInfo(name="password")
-    var passwrd:String
+    var passwrd:String,
+    @ColumnInfo(name = "like_count")
+    var likeCount: Int = 0,
+    @ColumnInfo(name = "description")
+    var desc: String
 )
 
 @Entity(tableName = "game")
