@@ -1,0 +1,204 @@
+{
+  "esport_games": [
+    {
+      "id":1,
+      "game_title": "LOL",
+      "description": "League of Legends is a team-based strategy game where two teams of five powerful champions face off to destroy the other's base. Choose from over 140 champions to make epic plays, secure kills, and take down towers as you battle your way to victory.",
+      "image": "https://static.wikia.nocookie.net/leagueoflegends/images/7/7b/League_of_Legends_Cover.jpg",
+      "achievements": [
+        {
+          "event_name": "League of Legends World Championship",
+          "team": "Team A",
+          "year": 2023
+        },
+        {
+          "event_name": "League of Legends World Championship",
+          "team": "Team B",
+          "year": 2022
+        }
+      ],
+      "upcoming_events": [
+        {
+          "event_name": "MSI (Mid-Season Invitational)",
+          "year": 2024,
+          "month": "May",
+          "day": 14,
+          "time": "10:00",
+          "game": "League of Legends",
+          "description": "The Mid-Season Invitational is the second most important League of Legends tournament, featuring top teams from various regions.",
+          "event_image": "https://pbs.twimg.com/media/C7s8ha8XwAAOAXq.jpg"
+        },
+        {
+          "event_name": "Worlds 2024",
+          "year": 2024,
+          "month": "October",
+          "day": 15,
+          "time": "17:00",
+          "game": "League of Legends",
+          "description": "The League of Legends World Championship, known as Worlds, is the pinnacle of the competitive LoL scene.",
+          "event_image": "https://cdn.oneesports.gg/cdn-data/2023/07/LeagueofLegends_Worlds2022_ChaseCenter_California_Stage.jpg"
+        }
+      ]
+    },
+    {
+      "id":2,
+      "game_title": "Dota 2",
+      "description": "Dota 2 is a multiplayer online battle arena (MOBA) game where two teams of five players each compete to destroy the other's 'Ancient' structure. The game has a steep learning curve but offers incredible depth and strategic gameplay.",
+      "image": "https://i.pcmag.com/imagery/reviews/00XEmE7YBg1AOLEzZFQxhJV-3.fit_lim.size_1050x591.v1569475078.jpg",
+      "achievements": [
+        {
+          "event_name": "The International 2023",
+          "team": "Team A",
+          "year": 2023
+        },
+        {
+          "event_name": "The International 2022",
+          "team": "Team B",
+          "year": 2022
+        }
+      ],
+      "upcoming_events": [
+        {
+          "event_name": "The International 2024",
+          "year": 2024,
+          "month": "August",
+          "day": 25,
+          "time": "12:00",
+          "game": "Dota 2",
+          "description": "The International is the most prestigious Dota 2 tournament, featuring the best teams from around the world competing for massive prize pools.",
+          "event_image": "https://admin.esports.gg/wp-content/uploads/2024/09/TI13-FORMAT-968x544.jpg"
+        },
+        {
+          "event_name": "Dota Pro Circuit 2024",
+          "year": 2024,
+          "month": "March",
+          "day": 12,
+          "time": "18:00",
+          "game": "Dota 2",
+          "description": "The Dota Pro Circuit is a series of professional tournaments that lead up to The International.",
+          "event_image": "https://cdn.oneesports.gg/cdn-data/2021/11/Dota_2_2022_DPC.jpg"
+        }
+      ]
+    },
+    {
+      "id":3,
+      "game_title": "CS:GO",
+      "description": "CS:GO is a first-person shooter game where two teams, Terrorists and Counter-Terrorists, face off to complete objectives such as defusing bombs or rescuing hostages, while the other team attempts to stop them.",
+      "image": "https://storage.ensigame.com/games/8f143c51c1cd1a9213ef38d65e6da7de.jpg",
+      "achievements": [
+        {
+          "event_name": "PGL Major Paris 2023",
+          "team": "Team A",
+          "year": 2023
+        },
+        {
+          "event_name": "PGL Major Antwerp 2022",
+          "team": "Team B",
+          "year": 2022
+        }
+      ],
+      "upcoming_events": [
+        {
+          "event_name": "IEM Katowice 2024",
+          "year": 2024,
+          "month": "February",
+          "day": 7,
+          "time": "15:00",
+          "game": "CS:GO",
+          "description": "Intel Extreme Masters (IEM) Katowice is one of the biggest events on the CS:GO calendar, with top teams battling for supremacy.",
+          "event_image": "https://eslpro.imgix.net/tour/wp-content/uploads/2024/02/IEM-Katowice2024-winner-mood6.jpg"
+        },
+        {
+          "event_name": "BLAST Premier Spring Final 2024",
+          "year": 2024,
+          "month": "June",
+          "day": 12,
+          "time": "13:00",
+          "game": "CS:GO",
+          "description": "BLAST Premier is a series of tournaments that culminates in the Spring Final, where the top CS:GO teams compete.",
+          "event_image": "https://resources.esportsinsider.com/esportsinsider/2023/10/Screenshot-2023-10-18-at-18.57.17.png"
+        }
+      ]
+    },
+    {
+      "id":4,
+      "game_title": "Valorant",
+      "description": "Valorant is a tactical first-person shooter where teams of agents with unique abilities face off in 5v5 matches. The game combines precise gunplay with strategic use of abilities.",
+      "image": "https://www.riotgames.com/darkroom/1440/8d5c497da1c2eeec8cffa99b01abc64b:5329ca773963a5b739e98e715957ab39/ps-f2p-val-console-launch-16x9.jpg",
+      "achievements": [
+        {
+          "event_name": "Valorant Champions 2023",
+          "team": "Team A",
+          "year": 2023
+        },
+        {
+          "event_name": "Valorant Champions 2022",
+          "team": "Team B",
+          "year": 2022
+        }
+      ],
+      "upcoming_events": [
+        {
+          "event_name": "VCT Masters 2024",
+          "year": 2024,
+          "month": "April",
+          "day": 20,
+          "time": "19:00",
+          "game": "Valorant",
+          "description": "Valorant Champions Tour (VCT) Masters is an international tournament featuring the best Valorant teams from around the world.",
+          "event_image": "https://prcdn.freetls.fastly.net/release_image/24470/560/24470-560-29bf28d0f52e55c92acbef689aeb31c5-1920x1080.png"
+        },
+        {
+          "event_name": "Valorant Champions 2024",
+          "year": 2024,
+          "month": "September",
+          "day": 1,
+          "time": "14:00",
+          "game": "Valorant",
+          "description": "Valorant Champions is the premier annual tournament in the Valorant esports calendar.",
+          "event_image": "https://cdn.sanity.io/images/dsfx7636/news_live/aa152871eaf24627815b91c8aeff70b4976b5b65-1920x1080.jpg"
+        }
+      ]
+    },
+    {
+      "id":5,
+      "game_title": "Overwatch 2",
+      "description": "Overwatch 2 is a team-based shooter where players select from a roster of heroes, each with unique abilities, and work together to complete objectives or defeat the opposing team.",
+      "image": "https://blz-contentstack-images.akamaized.net/v3/assets/blt2477dcaf4ebd440c/blt253a42ffb0888247/669fd7e71e8b41256ad4b7c2/S12_Overview_Thumbnail.jpg",
+      "achievements": [
+        {
+          "event_name": "Overwatch League Grand Finals 2023",
+          "team": "Team A",
+          "year": 2023
+        },
+        {
+          "event_name": "Overwatch League Grand Finals 2022",
+          "team": "Team B",
+          "year": 2022
+        }
+      ],
+      "upcoming_events": [
+        {
+          "event_name": "Overwatch World Cup 2024",
+          "year": 2024,
+          "month": "November",
+          "day": 5,
+          "time": "10:00",
+          "game": "Overwatch 2",
+          "description": "The Overwatch World Cup is an international event where national teams compete for the title of world champion.",
+          "event_image": "https://dotesports.com/wp-content/uploads/2024/07/ow2.jpg"
+        },
+        {
+          "event_name": "Overwatch League 2024",
+          "year": 2024,
+          "month": "March",
+          "day": 18,
+          "time": "16:00",
+          "game": "Overwatch 2",
+          "description": "The Overwatch League is a professional esports league with teams representing cities from around the world.",
+          "event_image": "https://www.negitaku.org/wp-content/uploads/2024/01/owl.jpg"
+        }
+      ]
+    }
+  ]
+}
