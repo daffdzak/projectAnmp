@@ -11,6 +11,9 @@ interface GameDao {
     @Query("SELECT * FROM game")
     fun getAllGameLiveData(): LiveData<List<Game>>
 
+    @Query("SELECT * FROM game")
+    fun getAllGames(): List<Game>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertGame(game: Game)
 

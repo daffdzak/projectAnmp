@@ -55,6 +55,9 @@
         android:id="@+id/itemTeam"
         android:name="com.example.projectanmp.view.TeamFragment"
         android:label="TeamFragment" >
+        <argument
+            android:name="gameId"
+            app:argType="integer"/>
         <action
             android:id="@+id/action_teamFragment_to_teamDetailFragment"
             app:destination="@id/teamDetailFragment" />

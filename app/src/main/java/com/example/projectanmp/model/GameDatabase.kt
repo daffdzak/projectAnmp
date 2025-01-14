@@ -15,12 +15,14 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 
 
-@Database(entities = [User::class, Game::class, Achievement::class, Apply::class], version = 1)
+@Database(entities = [User::class, Game::class, Achievement::class, Apply::class, Team::class, Member::class], version = 3)
 abstract class GameDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun gameDao(): GameDao
     abstract fun appliesDao():AppliesDao
     abstract fun achievementDao(): AchievementDao
+    abstract fun teamDao(): TeamDao
+    abstract fun memberDao():MemberDao
 
     companion object{
         @Volatile private var instance:GameDatabase? = null
@@ -93,7 +95,46 @@ abstract class GameDatabase : RoomDatabase() {
                         database.achievementDao().insertAchievement(newAchievement)
                         Log.d("GameDatabase", "Inserted achievement: ${achievement.event_name}")
                     }
-                } catch (e: Exception) {
+
+                    val hardcodedTeams = when (esport.id) {
+                        1 -> listOf(
+                            Team(teamName = "T1", gameId = esport.id),
+                            Team(teamName = "JDG", gameId = esport.id)
+                        )
+                        2 -> listOf(
+                            Team(teamName = "OG", gameId = esport.id),
+                            Team(teamName = "LDG", gameId = esport.id)
+                        )
+                        3 -> listOf(
+                            Team(teamName = "NAVI", gameId = esport.id),
+                            Team(teamName = "Team Spirit", gameId = esport.id)
+                        )
+                        4 -> listOf(
+                            Team(teamName = "PRX", gameId = esport.id),
+                            Team(teamName = "Sentinel", gameId = esport.id)
+                        )
+                        5 -> listOf(
+                            Team(teamName = "Team Iota", gameId = esport.id),
+                            Team(teamName = "Team Kappa", gameId = esport.id)
+                        )
+                        else -> emptyList()
+                    }
+                    hardcodedTeams.forEach { team ->
+                        val teamId = database.teamDao().insertTeam(team)
+                        Log.d("GameDatabase", "Inserted team: ${team.teamName} with ID: $teamId")
+
+                        val members = listOf(
+                            Member(name = "${esport.game_title} Akira (${team.teamName})", teamId = teamId.toInt()),
+                            Member(name = "${esport.game_title} Hiroshi (${team.teamName})", teamId = teamId.toInt()),
+                            Member(name = "${esport.game_title} Sakura (${team.teamName})", teamId = teamId.toInt())
+                        )
+                        members.forEach { member ->
+                            database.memberDao().insertMember(member)
+
+                            Log.d("GameDatabase", "Inserted member: ${member.name} for team ID: ${member.teamId}")
+                        }
+                    }
+                    } catch (e: Exception) {
                     Log.e("GameDatabase", "Error inserting game/achievement: ${esport.game_title}", e)
                 }
             }

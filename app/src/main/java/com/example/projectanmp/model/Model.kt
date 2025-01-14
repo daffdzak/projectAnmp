@@ -126,6 +126,28 @@ data class Apply(
     var status: String = "WAITING"
 )
 
+@Entity(tableName = "team")
+data class Team(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    @ColumnInfo(name = "team_name")
+    val teamName: String,
+    @ColumnInfo(name = "game_id")
+    val gameId: Int
+)
+
+@Entity(tableName = "member")
+data class Member(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    @ColumnInfo(name = "name")
+    val name: String,
+    @ColumnInfo(name = "team_id")
+    val teamId: Int
+)
+
+
+
 
 
 

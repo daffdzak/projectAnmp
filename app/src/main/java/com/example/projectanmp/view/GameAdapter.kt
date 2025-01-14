@@ -35,10 +35,10 @@ class GameAdapter(private var gameList: ArrayList<Game>) : RecyclerView.Adapter<
 //            holder.itemView.findNavController().navigate(action)
 //        }
 
-//        holder.binding.btnTeams.setOnClickListener {
-//            val action = MainFragmentDirections.actionMainFragmentToTeamFragment()
-//            holder.itemView.findNavController().navigate(action)
-//        }
+        holder.binding.btnTeams.setOnClickListener {
+            val action = MainFragmentDirections.actionMainFragmentToTeamFragment(gameId = currentItem.id)
+            holder.itemView.findNavController().navigate(action)
+        }
 
         Picasso.get()
             .load(currentItem.image)
