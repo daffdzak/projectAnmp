@@ -15,14 +15,7 @@ interface UserDao {
     @Query("SELECT * FROM user ORDER BY username ASC")
     fun selectAllUsers(): List<User>
 
-    @Query("UPDATE user SET firstName = :firstName, lastName = :lastName, username = :username, password = :password WHERE id = :id")
-    fun update(
-        id: Int,
-        firstName: String,
-        lastName: String,
-        username: String,
-        password: String
-    ): Int
+
 
     @Query("SELECT * FROM user WHERE id = :id")
     fun selectUser(id: Int): User?

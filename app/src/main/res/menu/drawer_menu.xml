@@ -6,9 +6,7 @@
         android:id="@+id/itemApply"
         android:icon="@drawable/baseline_people_24"
         android:title="Apply Tam" />
-    <item
-        android:id="@+id/itemProfile"
-        android:title="Profile" />
+
     <item
         android:id="@+id/itemLogout"
         android:title="Log Out" />

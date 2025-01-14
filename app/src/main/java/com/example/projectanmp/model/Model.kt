@@ -13,17 +13,17 @@ data class EsportGame(
     @SerializedName("id")
     val id: Int,
 
-    @SerializedName("image")
-    val image: String,
-
     @SerializedName("game_title")
     val game_title: String,
 
     @SerializedName("description")
     val description: String,
 
-    @SerializedName("achievement")
-    val achievement: List<AchievementJson>,
+    @SerializedName("image")
+    val image: String,
+
+    @SerializedName("achievements")
+    val achievements: List<AchievementJson>,
 
 //    @SerializedName("upcoming_events")
 //    val upcomingEvents: List<UpcomingEvent>
@@ -118,6 +118,9 @@ data class Apply(
 
     @ColumnInfo(name = "description")
     var description: String,
+
+    @ColumnInfo(name = "username")
+    var username : String,
 
     @ColumnInfo(name = "status")
     var status: String = "WAITING"

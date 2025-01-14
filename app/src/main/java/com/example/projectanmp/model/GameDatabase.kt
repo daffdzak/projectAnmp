@@ -15,10 +15,11 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 
 
-@Database(entities = [User::class, Game::class, Achievement::class], version = 1)
+@Database(entities = [User::class, Game::class, Achievement::class, Apply::class], version = 1)
 abstract class GameDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun gameDao(): GameDao
+    abstract fun appliesDao():AppliesDao
     abstract fun achievementDao(): AchievementDao
 
     companion object{
@@ -54,28 +55,46 @@ abstract class GameDatabase : RoomDatabase() {
 
         suspend fun populateDatabase(database: GameDatabase, context: Context) {
             val jsonString = loadJsonFromAsset("data.json", context)
+            if (jsonString == null) {
+                Log.e("GameDatabase", "Failed to load JSON from assets.")
+                return
+            }
+
             val gson = Gson()
             val typeToken = object : TypeToken<EsportGamesResponse>() {}.type
-            val EsportWrapper: EsportGamesResponse = gson.fromJson(jsonString, typeToken)
+            val esportWrapper: EsportGamesResponse? = gson.fromJson(jsonString, typeToken)
 
-            EsportWrapper.esport_games.forEach { comp ->
-                Log.d("GameDatabase", "Processing game: ${comp.game_title}")
-                val games = Game(
-                    id = comp.id,
-                    image = comp.image,
-                    gameName = comp.game_title,
-                    description = comp.description
-                )
-                database.gameDao().insertGame(games)
+            if (esportWrapper == null || esportWrapper.esport_games.isEmpty()) {
+                Log.e("GameDatabase", "No games found in JSON.")
+                return
+            }
 
-                comp.achievement.forEach { achievement ->
-                    val newAchievement = Achievement(
-                        eventName = achievement.event_name,
-                        team = achievement.team,
-                        year = achievement.year,
-                        competitionId = comp.id
+            Log.d("GameDatabase", "Number of games to insert: ${esportWrapper.esport_games.size}")
+
+            esportWrapper.esport_games.forEach { esport ->
+                try {
+                    // Insert game
+                    val game = Game(
+                        id = esport.id,
+                        image = esport.image,
+                        gameName = esport.game_title,
+                        description = esport.description
                     )
-                    database.achievementDao().insertAchievement(newAchievement)
+                    database.gameDao().insertGame(game)
+                    Log.d("GameDatabase", "Inserted game: ${esport.game_title}")
+
+                    esport.achievements.forEach { achievement ->
+                        val newAchievement = Achievement(
+                            eventName = achievement.event_name,
+                            team = achievement.team,
+                            year = achievement.year,
+                            competitionId = game.id
+                        )
+                        database.achievementDao().insertAchievement(newAchievement)
+                        Log.d("GameDatabase", "Inserted achievement: ${achievement.event_name}")
+                    }
+                } catch (e: Exception) {
+                    Log.e("GameDatabase", "Error inserting game/achievement: ${esport.game_title}", e)
                 }
             }
         }

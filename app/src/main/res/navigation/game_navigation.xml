@@ -59,4 +59,22 @@
             android:id="@+id/action_teamFragment_to_teamDetailFragment"
             app:destination="@id/teamDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/itemApply"
+        android:name="com.example.projectanmp.view.ApplyFragment"
+        android:label="fragment_apply"
+        tools:layout="@layout/fragment_apply" >
+        <action
+            android:id="@+id/action_itemApply_to_itemApplyNew"
+            app:destination="@id/itemApplyNew" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemApplyNew"
+        android:name="com.example.projectanmp.view.ApplyNewFragment"
+        android:label="fragment_apply_new"
+        tools:layout="@layout/fragment_apply_new" >
+        <action
+            android:id="@+id/action_itemApplyNew_to_itemApply"
+            app:destination="@id/itemApply" />
+    </fragment>
 </navigation>

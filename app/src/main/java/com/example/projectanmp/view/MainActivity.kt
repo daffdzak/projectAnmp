@@ -64,6 +64,7 @@ class MainActivity : AppCompatActivity() {
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.itemApply -> {
+                    navController.popBackStack(R.id.itemApply, true)
                     navController.navigate(R.id.itemApply)
                     true
                 }
