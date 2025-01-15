@@ -52,6 +52,29 @@ data class UpcomingEvent(
     val event_image: String
 )
 
+@Entity(tableName = "upcoming_events")
+data class UpcomingEventEntity(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    @ColumnInfo(name = "event_name")
+    val eventName: String,
+    @ColumnInfo(name = "year")
+    val year: Int,
+    @ColumnInfo(name = "month")
+    val month: String,
+    @ColumnInfo(name = "day")
+    val day: Int,
+    @ColumnInfo(name = "time")
+    val time: String,
+    @ColumnInfo(name = "game")
+    val game: String,
+    @ColumnInfo(name = "description")
+    val description: String,
+    @ColumnInfo(name = "event_image")
+    val eventImage: String
+)
+
+
 
 @Entity(tableName = "user")
 data class User(

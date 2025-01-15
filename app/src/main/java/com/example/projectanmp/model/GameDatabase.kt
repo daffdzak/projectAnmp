@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 
 
-@Database(entities = [User::class, Game::class, Achievement::class, Apply::class, Team::class, Member::class], version = 3)
+@Database(entities = [User::class, Game::class, Achievement::class, Apply::class, Team::class, Member::class, UpcomingEventEntity::class], version = 3)
 abstract class GameDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun gameDao(): GameDao
@@ -23,6 +23,7 @@ abstract class GameDatabase : RoomDatabase() {
     abstract fun achievementDao(): AchievementDao
     abstract fun teamDao(): TeamDao
     abstract fun memberDao():MemberDao
+    abstract fun upcomingEventDao(): UpcomingEventDao
 
     companion object{
         @Volatile private var instance:GameDatabase? = null
@@ -95,6 +96,21 @@ abstract class GameDatabase : RoomDatabase() {
                         database.achievementDao().insertAchievement(newAchievement)
                         Log.d("GameDatabase", "Inserted achievement: ${achievement.event_name}")
                     }
+                    esport.upcomingEvents.forEach { event ->
+                        val upcomingEvent = UpcomingEventEntity(
+                            eventName = event.event_name,
+                            year = event.year,
+                            month = event.month,
+                            day = event.day,
+                            time = event.time,
+                            game = event.game,
+                            description = event.description,
+                            eventImage = event.event_image
+                        )
+                        database.upcomingEventDao().insertUpcomingEvents(listOf(upcomingEvent))
+                        Log.d("GameDatabase", "Inserted upcoming event: ${event.event_name}")
+                    }
+
 
                     val hardcodedTeams = when (esport.id) {
                         1 -> listOf(

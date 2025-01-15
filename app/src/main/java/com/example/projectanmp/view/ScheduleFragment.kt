@@ -13,6 +13,7 @@ import com.example.projectanmp.databinding.FragmentScheduleBinding
 import com.example.projectanmp.adapter.ScheduleAdapter
 
 class ScheduleFragment : Fragment() {
+
     private lateinit var binding: FragmentScheduleBinding
     private lateinit var viewModel: ScheduleViewModel
     private lateinit var scheduleAdapter: ScheduleAdapter
@@ -20,46 +21,23 @@ class ScheduleFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentScheduleBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
-        scheduleAdapter = ScheduleAdapter(listOf())
+        scheduleAdapter = ScheduleAdapter(mutableListOf())
         binding.recyclerView.adapter = scheduleAdapter
 
         viewModel = ViewModelProvider(this).get(ScheduleViewModel::class.java)
-
         observeViewModel()
 
-        viewModel.refresh()
+        return binding.root
     }
 
     private fun observeViewModel() {
-        viewModel.upcomingEventsLD.observe(viewLifecycleOwner, Observer { events ->
-            events?.let {
-                scheduleAdapter.updateEvents(it)
-                binding.recyclerView.visibility = View.VISIBLE
-                Log.d("ScheduleFragment", "Event list size: ${it.size}")
-            }
-        })
-
-        viewModel.scheduleLoadErrorLD.observe(viewLifecycleOwner, Observer { isError ->
-            isError?.let {
-                if (it) {
-                    Log.e("ScheduleFragment", "Error loading schedule data")
-                }
-            }
-        })
-
-        viewModel.loadingLD.observe(viewLifecycleOwner, Observer { isLoading ->
-            isLoading?.let {
-                binding.recyclerView.visibility = if (it) View.GONE else View.VISIBLE
-            }
-        })
+        viewModel.upcomingEvents.observe(viewLifecycleOwner) { events ->
+            scheduleAdapter.updateEvents(events)
+        }
     }
 }
+

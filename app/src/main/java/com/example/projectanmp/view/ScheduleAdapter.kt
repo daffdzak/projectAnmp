@@ -5,30 +5,40 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectanmp.databinding.ItemScheduleBinding
 import com.example.projectanmp.model.UpcomingEvent
+import com.example.projectanmp.model.UpcomingEventEntity
 
-class ScheduleAdapter(private var events: List<UpcomingEvent>) : RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
+class ScheduleAdapter(private val eventList: MutableList<UpcomingEventEntity>) :
+    RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
 
-    class ScheduleViewHolder(val binding: ItemScheduleBinding) : RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemScheduleBinding.inflate(inflater, parent, false)
-        return ScheduleViewHolder(binding)
-    }
-
-    override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
-        val event = events[position]
-        holder.binding.apply {
-            txtTGL.text = event.day.toString()
-            txtBLN.text = event.month
-            txtNama.text = event.event_name
+    inner class ScheduleViewHolder(val binding: ItemScheduleBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(event: UpcomingEventEntity) {
+            binding.txtTGL.text = event.day.toString()
+            binding.txtBLN.text = event.month
+            binding.txtNama.text = event.eventName
         }
     }
 
-    override fun getItemCount() = events.size
 
-    fun updateEvents(newEvents: List<UpcomingEvent>) {
-        events = newEvents
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleViewHolder {
+        val binding = ItemScheduleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ScheduleViewHolder(binding)
+    }
+
+
+    override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
+        holder.bind(eventList[position])
+    }
+
+
+    override fun getItemCount(): Int = eventList.size
+
+
+    fun updateEvents(newEvents: List<UpcomingEventEntity>) {
+        eventList.clear()
+        eventList.addAll(newEvents)
         notifyDataSetChanged()
     }
 }
+
