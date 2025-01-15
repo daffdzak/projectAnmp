@@ -1,5 +1,6 @@
 package com.example.projectanmp.model
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -12,6 +13,9 @@ interface TeamDao {
 
     @Query("SELECT * FROM team WHERE game_id = :gameId")
     fun getTeamsByGameId(gameId: Int): List<Team>
+
+    @Query("SELECT * FROM team WHERE game_id = :gameId")
+    fun getTeamsByGameIdLive(gameId: Int): LiveData<List<Team>>
 
     @Query("DELETE FROM team")
     fun deleteAllTeams()

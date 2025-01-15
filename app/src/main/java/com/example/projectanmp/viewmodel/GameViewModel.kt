@@ -21,7 +21,7 @@ import org.json.JSONObject
 
 class GameViewModel(application: Application) : AndroidViewModel(application) {
     private val db = GameDatabase.buildDatabase(application, viewModelScope)
-    val gamesLD: LiveData<List<Game>> = db.gameDao().getAllGameLiveData()
+    val gamesLD: LiveData<List<Game>> = db.gameDao().getAllGames()
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() = _isLoading
@@ -37,7 +37,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         _isLoading.value = true
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val games = db.gameDao().getAllGameLiveData().value
+                val games = db.gameDao().getAllGames().value
                 _errorState.postValue(false)
                 games?.let {
                     viewModelScope.launch(Dispatchers.Main) {

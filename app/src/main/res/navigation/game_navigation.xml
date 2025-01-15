@@ -23,7 +23,14 @@
         android:id="@+id/scheduleDetailFragment"
         android:name="com.example.projectanmp.view.ScheduleDetailFragment"
         android:label="fragment_schedule_detail"
-        tools:layout="@layout/fragment_schedule_detail" />
+        tools:layout="@layout/fragment_schedule_detail" >
+        <argument
+            android:name="eventImage"
+            app:argType="string"/>
+        <argument
+            android:name="eventDescription"
+            app:argType="string"/>
+    </fragment>
     <fragment
         android:id="@+id/itemSchedule"
         android:name="com.example.projectanmp.view.ScheduleFragment"

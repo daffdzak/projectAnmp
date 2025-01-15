@@ -8,7 +8,6 @@
     android:layout_height="match_parent"
     tools:context=".view.LoginActivity">
 
-    <!-- Logo or Image -->
 
     <ImageView
         android:id="@+id/logoImageView"

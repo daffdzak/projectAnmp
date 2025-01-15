@@ -1,6 +1,7 @@
 package com.example.projectanmp.view
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,54 +19,63 @@ class ApplyFragment : Fragment() {
 
     private lateinit var binding: FragmentApplyBinding
     private lateinit var viewModel: ApplyViewModel
-    private lateinit var adapterApply: ApplyAdapter
-
-    private fun getUsername(): String {
-        return requireContext().getSharedPreferences("UserSession", Context.MODE_PRIVATE)
-            .getString("username", "") ?: ""
-    }
+    private lateinit var applyAdapter: ApplyAdapter
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentApplyBinding.inflate(inflater, container, false)
+
+        binding.proposalRecyclerView.layoutManager = LinearLayoutManager(context)
+        applyAdapter = ApplyAdapter(mutableListOf())
+        binding.proposalRecyclerView.adapter = applyAdapter
+
+        viewModel = ViewModelProvider(this).get(ApplyViewModel::class.java)
+
+        sharedPreferences = requireActivity().getSharedPreferences("UserSession", Context.MODE_PRIVATE)
+        val username = sharedPreferences.getString("username", null) ?: ""
+
+        observeViewModel()
+        viewModel.refresh(username)
+
+        binding.floatingActionButton.setOnClickListener {
+            findNavController().navigate(R.id.action_itemApply_to_itemApplyNew)
+        }
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel = ViewModelProvider(this).get(ApplyViewModel::class.java)
-        adapterApply = ApplyAdapter(listOf())
 
-        binding.proposalRecyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = adapterApply
-        }
+        val username = sharedPreferences.getString("username", null) ?: ""
 
+        viewModel.refresh(username)
+    }
+
+
+    private fun observeViewModel() {
         viewModel.applyLD.observe(viewLifecycleOwner) { applies ->
-            if (applies.isNotEmpty()) {
-                adapterApply.updateProposal(applies)
-                binding.noDataTextView.visibility = View.GONE
-            } else {
+            if (applies.isNullOrEmpty()) {
                 binding.noDataTextView.visibility = View.VISIBLE
+                binding.proposalRecyclerView.visibility = View.GONE
+            } else {
+                binding.noDataTextView.visibility = View.GONE
+                binding.proposalRecyclerView.visibility = View.VISIBLE
+                applyAdapter.updateApplies(applies)
             }
         }
-
-         binding.floatingActionButton.setOnClickListener {
-            navigateToApplyNew()
-        }
     }
-    override fun onResume() {
-        super.onResume()
-        viewModel.refresh(getUsername())
-    }
-
-    private fun navigateToApplyNew() {
-        findNavController().navigate(R.id.action_itemApply_to_itemApplyNew)
-    }
-
 }
+
+
+
+
+
 
 
 

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projectanmp.databinding.FragmentScheduleBinding
 import com.example.projectanmp.adapter.ScheduleAdapter
@@ -25,7 +26,13 @@ class ScheduleFragment : Fragment() {
         binding = FragmentScheduleBinding.inflate(inflater, container, false)
 
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
-        scheduleAdapter = ScheduleAdapter(mutableListOf())
+        scheduleAdapter = ScheduleAdapter(mutableListOf()) { event ->
+            val action = ScheduleFragmentDirections.actionScheduleFragmentToScheduleDetailFragment(
+                eventImage = event.eventImage,
+                eventDescription = event.description
+            )
+            view?.findNavController()?.navigate(action)
+        }
         binding.recyclerView.adapter = scheduleAdapter
 
         viewModel = ViewModelProvider(this).get(ScheduleViewModel::class.java)
@@ -40,4 +47,6 @@ class ScheduleFragment : Fragment() {
         }
     }
 }
+
+
 

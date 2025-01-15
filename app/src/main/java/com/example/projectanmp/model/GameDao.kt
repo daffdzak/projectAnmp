@@ -8,11 +8,13 @@ import androidx.room.Query
 
 @Dao
 interface GameDao {
-    @Query("SELECT * FROM game")
-    fun getAllGameLiveData(): LiveData<List<Game>>
 
     @Query("SELECT * FROM game")
-    fun getAllGames(): List<Game>
+    fun getAllGames(): LiveData<List<Game>>
+
+    @Query("SELECT id FROM game WHERE game_title = :gameName LIMIT 1")
+    fun getGameIdByName(gameName: String): Int
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertGame(game: Game)

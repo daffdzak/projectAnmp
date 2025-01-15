@@ -8,40 +8,37 @@ import androidx.lifecycle.viewModelScope
 import com.example.projectanmp.model.Apply
 import com.example.projectanmp.model.Game
 import com.example.projectanmp.model.GameDatabase
+import com.example.projectanmp.model.Team
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 
-class ApplynewViewModel(application: Application): AndroidViewModel(application){
-    private val database = GameDatabase.buildDatabase(application, viewModelScope)
-    private val _gameLD = MutableLiveData<List<Game>>()
-    val gameLD: LiveData<List<Game>> = _gameLD
+class ApplynewViewModel(application: Application) : AndroidViewModel(application) {
 
-    init {
-        loadGames()
-    }
+    private val gameDao = GameDatabase.buildDatabase(application, viewModelScope).gameDao()
+    private val teamDao = GameDatabase.buildDatabase(application, viewModelScope).teamDao()
+    private val applyDao = GameDatabase.buildDatabase(application, viewModelScope).appliesDao()
 
-    fun loadGames() {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val gameList = database.gameDao().getAllGames()
-                _gameLD.postValue(gameList)
-            } catch (e: Exception) {
-                e.printStackTrace()
-                _gameLD.postValue(emptyList())
+    val gameLD: LiveData<List<Game>> = gameDao.getAllGames()
+
+    fun loadTeams(gameName: String): LiveData<List<Team>> {
+        val result = MutableLiveData<List<Team>>()
+        viewModelScope.launch(Dispatchers.IO){
+            val gameId = gameDao.getGameIdByName(gameName)
+            val teams = teamDao.getTeamsByGameIdLive(gameId)
+            withContext(Dispatchers.Main){
+                teams.observeForever { result.postValue(it) }
             }
         }
+
+        return result
     }
 
-    fun submitProposal(applies: Apply) {
+    fun submitProposal(proposal: Apply) {
         viewModelScope.launch(Dispatchers.IO) {
-            try {
-                database.appliesDao().insertProposal(applies)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            applyDao.insertProposal(proposal)
         }
     }
-
-
-
 }
+

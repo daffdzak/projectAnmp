@@ -37,23 +37,19 @@ class TeamFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_team, container, false)
 
-        // Initialize ListView
         listView = view.findViewById(R.id.teamListView)
         teamAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, mutableListOf())
         listView.adapter = teamAdapter
 
-        // Initialize ViewModel
         viewModel = ViewModelProvider(this).get(TeamViewModel::class.java)
 
-        // Observe team data
         viewModel.getTeamsForGame(gameId).observe(viewLifecycleOwner) { teams ->
-            teamList = teams // Store the list for navigation
+            teamList = teams
             val teamNames = teams.map { it.teamName }
             teamAdapter.clear()
             teamAdapter.addAll(teamNames)
         }
 
-        // Set item click listener for ListView
         listView.setOnItemClickListener { _, _, position, _ ->
             val selectedTeam = teamList[position]
             val action = TeamFragmentDirections.actionTeamFragmentToTeamDetailFragment(teamId = selectedTeam.id)
