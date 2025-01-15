@@ -17,6 +17,8 @@ import com.example.projectanmp.viewmodel.GameViewModel
 import android.widget.ArrayAdapter
 
 
+import java.util.Calendar
+
 class AchievementFragment : Fragment() {
 
     private lateinit var binding: FragmentAchievementBinding
@@ -47,7 +49,32 @@ class AchievementFragment : Fragment() {
 
         viewModel.getAchievementsByGameId(gameId)
 
+        val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+        val years = (currentYear downTo (currentYear - 4)).toList()
+        val yearAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, years)
+        yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinner.adapter = yearAdapter
+
+        binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                val selectedYear = years[position]
+                filterAchievementsByYear(selectedYear)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
+        }
+
         return binding.root
+    }
+
+    private fun filterAchievementsByYear(year: Int) {
+        val filteredAchievements = viewModel.achievementLD.value?.filter { achievement ->
+            achievement.year == year
+        } ?: emptyList()
+
+        achievementAdapter.updateAchievements(filteredAchievements)
     }
 
     private fun observeViewModel() {
@@ -56,5 +83,8 @@ class AchievementFragment : Fragment() {
         }
     }
 }
+
+
+
 
 

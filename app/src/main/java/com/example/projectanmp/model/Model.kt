@@ -25,8 +25,8 @@ data class EsportGame(
     @SerializedName("achievements")
     val achievements: List<AchievementJson>,
 
-//    @SerializedName("upcoming_events")
-//    val upcomingEvents: List<UpcomingEvent>
+    @SerializedName("upcoming_events")
+    val upcomingEvents: List<UpcomingEvent>
 )
 
 data class AchievementJson(
@@ -41,21 +41,17 @@ data class AchievementJson(
 
 )
 
-//data class UpcomingEvent(
-//    val event_name: String,
-//    val year: Int,
-//    val month: String,
-//    val day: Int,
-//    val time: String,
-//    val game: String,
-//    val description: String,
-//    val event_image: String
-//)
+data class UpcomingEvent(
+    val event_name: String,
+    val year: Int,
+    val month: String,
+    val day: Int,
+    val time: String,
+    val game: String,
+    val description: String,
+    val event_image: String
+)
 
-//data class Team(
-//    val name: String,
-//    val members: List<String>
-//)
 
 @Entity(tableName = "user")
 data class User(

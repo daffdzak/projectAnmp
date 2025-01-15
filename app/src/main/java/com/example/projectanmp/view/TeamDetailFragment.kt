@@ -21,20 +21,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class TeamViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val memberDao = GameDatabase.buildDatabase(application, viewModelScope).memberDao()
-
-    private val _selectedTeamMembers = MutableLiveData<List<Member>>()
-    val selectedTeamMembers: LiveData<List<Member>> get() = _selectedTeamMembers
-
-    fun loadMembersForTeam(teamId: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val members = memberDao.getMembersByTeamId(teamId)
-            _selectedTeamMembers.postValue(members)
-        }
-    }
-}
 
 
 class TeamDetailFragment : Fragment() {
