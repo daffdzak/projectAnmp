@@ -8,12 +8,12 @@
       "achievements": [
         {
           "event_name": "League of Legends World Championship",
-          "team": "Team A",
+          "team": "T1",
           "year": 2023
         },
         {
           "event_name": "League of Legends World Championship",
-          "team": "Team B",
+          "team": "JDG",
           "year": 2022
         }
       ],
@@ -48,12 +48,12 @@
       "achievements": [
         {
           "event_name": "The International 2023",
-          "team": "Team A",
+          "team": "OG",
           "year": 2023
         },
         {
           "event_name": "The International 2022",
-          "team": "Team B",
+          "team": "LDG",
           "year": 2022
         }
       ],
@@ -88,12 +88,12 @@
       "achievements": [
         {
           "event_name": "PGL Major Paris 2023",
-          "team": "Team A",
+          "team": "NAVI",
           "year": 2023
         },
         {
           "event_name": "PGL Major Antwerp 2022",
-          "team": "Team B",
+          "team": "Team Spirit",
           "year": 2022
         }
       ],
@@ -128,12 +128,12 @@
       "achievements": [
         {
           "event_name": "Valorant Champions 2023",
-          "team": "Team A",
+          "team": "PRX",
           "year": 2023
         },
         {
           "event_name": "Valorant Champions 2022",
-          "team": "Team B",
+          "team": "Sentinel",
           "year": 2022
         }
       ],
@@ -168,12 +168,12 @@
       "achievements": [
         {
           "event_name": "Overwatch League Grand Finals 2023",
-          "team": "Team A",
+          "team": "Team Iota",
           "year": 2023
         },
         {
           "event_name": "Overwatch League Grand Finals 2022",
-          "team": "Team B",
+          "team": "Team Kappa",
           "year": 2022
         }
       ],

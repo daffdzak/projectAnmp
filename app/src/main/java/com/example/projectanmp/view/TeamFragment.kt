@@ -9,12 +9,12 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectanmp.R
 import com.example.projectanmp.model.Team
 import com.example.projectanmp.viewmodel.TeamViewModel
-
 
 class TeamFragment : Fragment() {
 
@@ -22,11 +22,12 @@ class TeamFragment : Fragment() {
     private lateinit var listView: ListView
     private lateinit var teamAdapter: ArrayAdapter<String>
     private lateinit var viewModel: TeamViewModel
+    private var teamList: List<com.example.projectanmp.model.Team> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            gameId = it.getInt("gameId", -1) // Ambil gameId dari Safe Args
+            gameId = it.getInt("gameId", -1)
         }
     }
 
@@ -36,24 +37,33 @@ class TeamFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_team, container, false)
 
-        // Setup ListView
+        // Initialize ListView
         listView = view.findViewById(R.id.teamListView)
         teamAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, mutableListOf())
         listView.adapter = teamAdapter
 
-        // Setup ViewModel
+        // Initialize ViewModel
         viewModel = ViewModelProvider(this).get(TeamViewModel::class.java)
 
-        // Observe data tim dari ViewModel
+        // Observe team data
         viewModel.getTeamsForGame(gameId).observe(viewLifecycleOwner) { teams ->
-            val teamNames = teams.map { it.teamName } // Ubah ke daftar nama tim
+            teamList = teams // Store the list for navigation
+            val teamNames = teams.map { it.teamName }
             teamAdapter.clear()
-            teamAdapter.addAll(teamNames) // Perbarui ListView dengan nama tim
+            teamAdapter.addAll(teamNames)
+        }
+
+        // Set item click listener for ListView
+        listView.setOnItemClickListener { _, _, position, _ ->
+            val selectedTeam = teamList[position]
+            val action = TeamFragmentDirections.actionTeamFragmentToTeamDetailFragment(teamId = selectedTeam.id)
+            view.findNavController().navigate(action)
         }
 
         return view
     }
 }
+
 
 
 

@@ -120,6 +120,7 @@ abstract class GameDatabase : RoomDatabase() {
                         else -> emptyList()
                     }
                     hardcodedTeams.forEach { team ->
+
                         val teamId = database.teamDao().insertTeam(team)
                         Log.d("GameDatabase", "Inserted team: ${team.teamName} with ID: $teamId")
 

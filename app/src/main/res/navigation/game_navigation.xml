@@ -38,8 +38,8 @@
         android:label="fragment_achievement"
         tools:layout="@layout/fragment_achievement" >
         <argument
-            android:name="achievement"
-            app:argType="string[]"/>
+            android:name="gameId"
+            app:argType="integer"/>
     </fragment>
     <fragment
         android:id="@+id/itemProfile"
@@ -50,7 +50,11 @@
         android:id="@+id/teamDetailFragment"
         android:name="com.example.projectanmp.view.TeamDetailFragment"
         android:label="fragment_team_detail"
-        tools:layout="@layout/fragment_team_detail" />
+        tools:layout="@layout/fragment_team_detail" >
+        <argument
+            android:name="teamId"
+            app:argType="integer"/>
+    </fragment>
     <fragment
         android:id="@+id/itemTeam"
         android:name="com.example.projectanmp.view.TeamFragment"
